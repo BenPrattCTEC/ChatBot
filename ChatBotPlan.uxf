@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="14.2">
+  <zoom_level>10</zoom_level>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>390</x>
+      <y>160</y>
+      <w>270</w>
+      <h>300</h>
+    </coordinates>
+    <panel_attributes>bg=gray
+package::SampleClassName
+
+--
+Date Members:
+-for private
+-variableName: t/Type
+
+--
+Methods/Contructors
+-private
++public
+#protected
+
++start(): void
++SampleClassName: Constructor
++doesSomthing(int): double</panel_attributes>
+    <additional_attributes/>
+  </element>
+</diagram>
