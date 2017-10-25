@@ -90,7 +90,7 @@ public class Chatbot {
 			return false;
 		if(input.substring(1).contains("@"))
 			return false;
-		
+	
 		return true;
 	}
 	
