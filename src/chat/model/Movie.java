@@ -78,6 +78,6 @@ public class Movie {
 	}
 	
 	public String toString() {
-		return "";
+		return "Not yet implemented";
 	}
 }

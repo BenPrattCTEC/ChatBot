@@ -139,7 +139,7 @@ public class Chatbot {
 	}
 	
 	public String[] getQuestions() {
-		return null;
+		return questions;
 	}
 	
 	public String[] getVerbs() {
@@ -167,7 +167,7 @@ public class Chatbot {
 	}
 	
 	public LocalTime getCurrentTime() {
-		return null;
+		return LocalTime.now();
 	}
 	
 	public void setUsername(String username) {
