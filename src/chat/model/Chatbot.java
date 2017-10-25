@@ -1,6 +1,9 @@
 package chat.model;
 
+import chat.model.*;
+
 import java.util.List;
+import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
 
@@ -43,6 +46,12 @@ public class Chatbot {
 	}
 	
 	private void buildMovieList() {
+		//Movie(String title, String genre, String ratingMPAA, String review, int length, LocalDate releaseDate, double starScore)
+		movieList.add(new Movie("Movie Name", "Movie", "R", "The worst movie i have ever seen", 120, LocalDate.now(), 1.2));
+		movieList.add(new Movie("Movie Name", "Movie", "R", "The worst movie i have ever seen", 120, LocalDate.now(), 1.2));
+		movieList.add(new Movie("Movie Name", "Movie", "R", "The worst movie i have ever seen", 120, LocalDate.now(), 1.2));
+		movieList.add(new Movie("Movie Name", "Movie", "R", "The worst movie i have ever seen", 120, LocalDate.now(), 1.2));
+		movieList.add(new Movie("Movie Name", "Movie", "R", "The worst movie i have ever seen", 120, LocalDate.now(), 1.2));
 		
 	}
 	
