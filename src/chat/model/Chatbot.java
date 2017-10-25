@@ -19,7 +19,7 @@ public class Chatbot {
 	
 	public Chatbot(String username) {
 		this.movieList = null;
-		this.shoppingList = null;
+		this.shoppingList = new ArrayList<String>();
 		this.cuteAnimalMemes = null;
 		this.currentTime = null;
 		this.questions = null;
@@ -30,6 +30,16 @@ public class Chatbot {
 		this.topics = null;
 		this.verbs = null;
 		this.followUps = null;
+		
+		buildVerbs();
+		buildShoppingList();
+		buildMovieList();
+		buildCuteAnimals();
+		buildQuestions();
+	}
+	
+	private void buildVerbs(){
+		verbs = new String[] {"like", "dislike", "am ambivalent about", "am thinking about"};
 	}
 	
 	private void buildMovieList() {
@@ -37,6 +47,11 @@ public class Chatbot {
 	}
 	
 	private void buildShoppingList() {
+		shoppingList.add("snacks");
+		shoppingList.add("money");
+		shoppingList.add("veggies");
+		shoppingList.add("pritein");
+		shoppingList.add("cats");
 		
 	}
 	
@@ -69,7 +84,14 @@ public class Chatbot {
 	}
 	
 	public boolean userNameChecker(String input) {
-		return false;
+		if(input==null)
+			return false;
+		if(!input.startsWith("@"))
+			return false;
+		if(input.substring(1).contains("@"))
+			return false;
+		
+		return true;
 	}
 	
 	public boolean contentChecker(String contentCheck) {
@@ -81,6 +103,10 @@ public class Chatbot {
 	}
 	
 	public boolean shoppingListChecker(String shoppingItem) {
+		for(int i = 0; i<shoppingList.size(); i++){
+			if(shoppingList.get(i).equals(shoppingItem))
+				return true;
+		}
 		return false;
 	}
 	

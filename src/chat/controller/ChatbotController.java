@@ -22,6 +22,15 @@ public class ChatbotController {
 	public PopupDisplay getDisplay(){
 		return pop;
 	}
+		
+	public String interactWithChatbot(String message){
+		return null;
+	}
+
+	public ChatFrame getChatFrame() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
 
 
