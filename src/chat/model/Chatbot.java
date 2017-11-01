@@ -51,7 +51,7 @@ public class Chatbot {
 	}
 	
 	private void buildQuestions() {
-		questions = new String[] {"Do you like Cheese?", "How old are you?", "what is your opinion on allowing AIs to vote?", "Are you a vegitarian?"};
+		questions = new String[] {"Do you like Cheese?", "How old are you?", "what is your opinion on allowing AIs to vote?", "Are you a vegitarian?", "Would you like to play a game?"};
 	}
 	
 	private void buildMovieList() {

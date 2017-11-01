@@ -17,10 +17,12 @@ public class PopupDisplay {
 	}
 	
 	public void displayText(String text){
+		System.out.println(text);
 		JOptionPane.showMessageDialog(null, text, windowTitle, JOptionPane.INFORMATION_MESSAGE, icon);
 	}
 	
 	public String displayQuestion(String text){
+		System.out.println(text);
 		return (String)JOptionPane.showInputDialog(null, text, windowTitle, JOptionPane.PLAIN_MESSAGE, icon, null, "");
 	}
 	

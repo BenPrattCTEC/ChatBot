@@ -17,17 +17,15 @@ public class ChatbotController {
 	}
 	
 	public void start() {
-		textInteract();
-//		String input = pop.displayQuestion("What would you like to talk about?");
-//		try {
-//			while (!bot.quitChecker(input)) {// && bot.lengthChecker(input)){
-//				input = pop.displayQuestion(bot.processConversation(input));
-//			}
-//		}
-//		catch (Exception e) {
-//			e.printStackTrace();
-//		}
-//		pop.displayText("Goodbye!");
+		String input = pop.displayQuestion("What would you like to talk about?");
+		try {
+			while (!bot.quitChecker(input)) {// && bot.lengthChecker(input)){
+				input = pop.displayQuestion(bot.processConversation(input));
+			}
+		}
+		catch (Exception e) {
+		}
+		pop.displayText("Goodbye!");
 	}
 	
 	private void textInteract() {
