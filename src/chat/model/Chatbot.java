@@ -36,13 +36,22 @@ public class Chatbot {
 		
 		buildVerbs();
 		buildShoppingList();
-		buildMovieList();
+//		buildMovieList();
 		buildCuteAnimals();
 		buildQuestions();
+		buildTopics();
 	}
 	
 	private void buildVerbs(){
 		verbs = new String[] {"like", "dislike", "am ambivalent about", "am thinking about"};
+	}
+	
+	private void buildTopics(){
+		topics = new String[] {"Cows", "The state of the world", "My pet fish, fluffy", "My own existence"};
+	}
+	
+	private void buildQuestions() {
+		questions = new String[] {"Do you like Cheese?", "How old are you?", "what is your opinion on allowing AIs to vote?", "Are you a vegitarian?"};
 	}
 	
 	private void buildMovieList() {
@@ -59,7 +68,7 @@ public class Chatbot {
 		shoppingList.add("snacks");
 		shoppingList.add("money");
 		shoppingList.add("veggies");
-		shoppingList.add("pritein");
+		shoppingList.add("protein");
 		shoppingList.add("cats");
 		
 	}
@@ -68,12 +77,22 @@ public class Chatbot {
 		
 	}
 	
-	private void buildQuestions() {
+	public String processConversation(String input) {
+		String response = "";
 		
+		//response = "You said: " + input + "\n";
+		
+		response += buildChatbotResponse();
+		
+		return response;
 	}
 	
-	public String processConversation(String input) {
-		return null;
+	private String buildChatbotResponse(){
+		String response = "I " ;
+		response += verbs[(int)(Math.random()*verbs.length)] + " ";
+		response += topics[(int)(Math.random()*topics.length)] + " ";
+		response += "\n" + questions[(int)(Math.random()*questions.length)];
+		return response;
 	}
 	
 	public boolean lengthChecker(String input) {
@@ -84,7 +103,7 @@ public class Chatbot {
 		//checks length
 		if(input.length() <= 2)
 			return false;
-		
+	
 		return true;
 	}
 	
@@ -94,6 +113,8 @@ public class Chatbot {
 	
 	public boolean userNameChecker(String input) {
 		if(input==null)
+			return false;
+		if(input == "")
 			return false;
 		if(!input.startsWith("@"))
 			return false;
@@ -128,7 +149,7 @@ public class Chatbot {
 	}
 	
 	public boolean quitChecker(String exitString) {
-		return false;
+		return exitString.equalsIgnoreCase("quit");
 	}
 	
 	public boolean keyboardMashChecker(String sample) {
