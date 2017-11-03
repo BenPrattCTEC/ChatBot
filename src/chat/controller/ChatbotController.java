@@ -24,6 +24,7 @@ public class ChatbotController {
 			}
 		}
 		catch (Exception e) {
+			e.printStackTrace();
 		}
 		pop.displayText("Goodbye!");
 	}

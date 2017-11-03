@@ -7,6 +7,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
 
+
 public class Chatbot {
 	private List<Movie> movieList;
 	private List<String> shoppingList;
@@ -100,6 +101,8 @@ public class Chatbot {
 		String response = "";
 		
 		if (input != null) {
+			if (keyboardMashChecker(input))
+				return "I think that you just mashed the keyboard";
 			if (input.equalsIgnoreCase("exit"))
 				return "The command is quit you idiot";
 		}
@@ -177,7 +180,38 @@ public class Chatbot {
 	}
 	
 	public boolean keyboardMashChecker(String sample) {
-		return false;
+		final double mashProbabilityThreshhold = .1;
+		final String[] patterns = {
+				"as", "df",
+				"jk", "l;",
+				";", "'",
+				"sd", "fg",
+				"hj", "gj",
+				"[", "]",
+				"/", "fd",
+				"gm", "sg",
+				"ad", "hf"};
+		
+		int patternCount[]  = new int[patterns.length]; //stores amount of times that the corresponding string has occurred
+		
+		sample = sample.toLowerCase();
+		double mashProbability = 0;
+		int stringLength = sample.length();
+		int patternCountAccumulator = 0;
+		
+		//populates patternCount[]
+		for(int i = 0; i < patterns.length; i++){
+				patternCount[i] = countOccurrences(patterns[i], sample);
+		}
+		for(int i = 0; i < patternCount.length; i++){
+			patternCountAccumulator += patternCount[i];
+		}
+		
+		mashProbability = (double)patternCountAccumulator/(double)stringLength;
+		
+//		System.out.println(mashProbability);  // debug
+		
+		return mashProbability > mashProbabilityThreshhold;
 	}
 	
 	public List<Movie> getMovieList() {
@@ -235,5 +269,16 @@ public class Chatbot {
 	@Override
 	public String toString(){
 		return "";
+	}
+	
+	private int countOccurrences(String pattern, String sample){
+		int index = sample.indexOf(pattern);
+		int count = 0;
+		while (index != -1) {
+		    count++;
+		    sample = sample.substring(index + 1);
+		    index = sample.indexOf(pattern);
+		}
+		return count;
 	}
 }
