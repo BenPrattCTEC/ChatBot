@@ -17,7 +17,7 @@ public class ChatbotController {
 	}
 	
 	public void start() {
-		String input = pop.displayQuestion("What would you like to talk about?");
+		String input = pop.displayQuestion("Hello! What would you like to talk about?");
 		try {
 			while (!bot.quitChecker(input)) {// && bot.lengthChecker(input)){
 				input = pop.displayQuestion(bot.processConversation(input));
@@ -26,14 +26,6 @@ public class ChatbotController {
 		catch (Exception e) {
 		}
 		pop.displayText("Goodbye!");
-	}
-	
-	private void textInteract() {
-		String input = "";
-		while (!bot.quitChecker(input)) {
-			input = inp.nextLine();
-			System.out.println(bot.processConversation(input));
-		}
 	}
 	
 	public Chatbot getChatbot() {
