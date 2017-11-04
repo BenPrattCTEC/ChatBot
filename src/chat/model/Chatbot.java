@@ -62,7 +62,7 @@ public class Chatbot {
 				"What is your name?",
 				"what is your most commonly used password?",
 				"What is your favorite color?",
-				"What is yout Mother's maiden name?"
+				"What is your Mother's maiden name?"
 				};
 	}
 	
@@ -209,7 +209,7 @@ public class Chatbot {
 		
 		mashProbability = (double)patternCountAccumulator/(double)stringLength;
 		
-//		System.out.println(mashProbability);  // debug
+//		[pSystem.out.println(mashProbability);  // debug
 		
 		return mashProbability > mashProbabilityThreshhold;
 	}
