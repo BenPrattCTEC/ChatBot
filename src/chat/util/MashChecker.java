@@ -44,7 +44,7 @@ public class MashChecker {
 		}
 		
 		mashProbability = (double) patternCountAccumulator / (double) stringLength;
-		
+//		System.out.println(mashProbability);
 		return mashProbability;
 	}
 	

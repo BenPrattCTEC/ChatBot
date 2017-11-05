@@ -31,7 +31,9 @@ public class Chatbot {
 			"/", "fd",
 			"gm", "sg",
 			"ad", "hf",
-			"uj", "jf"};
+			"uj", "jf",
+			"fg", "cvb",
+			",.", "kjh"};
 	
 	private MashChecker mash = new MashChecker(mashPatterns);
 	
@@ -112,7 +114,6 @@ public class Chatbot {
 	}
 	
 	public String processConversation(String input) {
-		String response = "";
 		
 		if (input != null) {
 			if (keyboardMashChecker(input))
@@ -194,7 +195,7 @@ public class Chatbot {
 	}
 	
 	public boolean keyboardMashChecker(String sample) {
-		final double mashProbabilityThreshhold = .05;
+		final double mashProbabilityThreshhold = .1;
 		return mash.check(sample) > mashProbabilityThreshhold;
 	}
 	
