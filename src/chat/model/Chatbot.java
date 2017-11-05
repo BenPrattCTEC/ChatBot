@@ -1,7 +1,7 @@
 package chat.model;
 
 import chat.model.*;
-
+import chat.util.*;
 import java.util.List;
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -20,6 +20,20 @@ public class Chatbot {
 	private String content;
 	private String intro;
 	private LocalTime currentTime;
+	
+	final String[] mashPatterns = {
+			"df", "fp",
+			"kj", "l;",
+			";", "'",
+			"sd", "fg",
+			"hj", "gj",
+			"[", "]",
+			"/", "fd",
+			"gm", "sg",
+			"ad", "hf",
+			"uj", "jf"};
+	
+	private MashChecker mash = new MashChecker(mashPatterns);
 	
 	public Chatbot(String username) {
 		this.movieList = new ArrayList<Movie>();
@@ -180,38 +194,8 @@ public class Chatbot {
 	}
 	
 	public boolean keyboardMashChecker(String sample) {
-		final double mashProbabilityThreshhold = .1;
-		final String[] patterns = {
-				"as", "df",
-				"jk", "l;",
-				";", "'",
-				"sd", "fg",
-				"hj", "gj",
-				"[", "]",
-				"/", "fd",
-				"gm", "sg",
-				"ad", "hf"};
-		
-		int patternCount[]  = new int[patterns.length]; //stores amount of times that the corresponding string has occurred
-		
-		sample = sample.toLowerCase();
-		double mashProbability = 0;
-		int stringLength = sample.length();
-		int patternCountAccumulator = 0;
-		
-		//populates patternCount[]
-		for(int i = 0; i < patterns.length; i++){
-				patternCount[i] = countOccurrences(patterns[i], sample);
-		}
-		for(int i = 0; i < patternCount.length; i++){
-			patternCountAccumulator += patternCount[i];
-		}
-		
-		mashProbability = (double)patternCountAccumulator/(double)stringLength;
-		
-//		[pSystem.out.println(mashProbability);  // debug
-		
-		return mashProbability > mashProbabilityThreshhold;
+		final double mashProbabilityThreshhold = .05;
+		return mash.check(sample) > mashProbabilityThreshhold;
 	}
 	
 	public List<Movie> getMovieList() {
@@ -271,14 +255,5 @@ public class Chatbot {
 		return "";
 	}
 	
-	private int countOccurrences(String pattern, String sample){
-		int index = sample.indexOf(pattern);
-		int count = 0;
-		while (index != -1) {
-		    count++;
-		    sample = sample.substring(index + 1);
-		    index = sample.indexOf(pattern);
-		}
-		return count;
-	}
+	
 }
