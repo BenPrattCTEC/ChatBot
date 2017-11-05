@@ -53,7 +53,7 @@ public class Chatbot {
 		
 		buildVerbs();
 		buildShoppingList();
-		// buildMovieList();
+		buildMovieList();
 		buildCuteAnimals();
 		buildQuestions();
 		buildTopics();
@@ -106,6 +106,7 @@ public class Chatbot {
 		shoppingList.add("rice");
 		shoppingList.add("paper towels");
 		shoppingList.add("dog food");
+		shoppingList.add("dog");
 		
 	}
 	
@@ -146,7 +147,49 @@ public class Chatbot {
 	}
 	
 	public boolean htmlTagChecker(String input) {
-		return false;
+		int[] markers = new int[4];
+		//the code tries to parse the tag, if it throws an error, the tag is invalid
+		try{
+			input = input.toLowerCase().trim();
+			if(!input.startsWith("<"))
+				return false;
+			
+			//index of opening tag beginning (First <)
+			markers[0] = 0;
+			//index of opening tag end (First >)
+			markers[1] = input.indexOf(">");
+			
+			//assigns the string in the opening tag
+			String openingTag = input.substring(markers[0]+1, markers[1]);
+			System.out.println(openingTag);
+			//if the content of the first tag is p, ignore the rest and return true
+			if(openingTag.equals("p"))
+				return true;
+			
+			//index of closing tag beginning (Second <)
+			markers[2] = (input.substring(markers[1]).indexOf("<"))+markers[1];
+			//index of closing tag end (Second >)
+			markers[3] = (input.substring(markers[2]).indexOf(">"))+markers[2];
+			
+			//finds the data in the tags and content
+			String content = input.substring(markers[1]+1, markers[2]);
+			String closingTag = input.substring(markers[2]+1, markers[3]);
+			
+			//now that we know the tag is in the correct format, we can check the content
+			
+			if(openingTag.contains("href")){
+				//checks if the href has an equals sign after it
+				if(!openingTag.substring(openingTag.indexOf("href")+4).startsWith("="))
+					return false;
+			}
+			
+			//checks if the opening tag and closing tag are the same type and the closing tag begins with a '/'
+			if(!openingTag.startsWith(closingTag.substring(1)) && closingTag.startsWith("/"))
+				return false;
+			return true;
+		} catch(Exception e){
+			return false;
+		}
 	}
 	
 	public boolean userNameChecker(String input) {
