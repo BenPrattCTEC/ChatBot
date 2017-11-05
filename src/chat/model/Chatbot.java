@@ -110,8 +110,12 @@ public class Chatbot {
 		
 	}
 	
+	//what is this and why am i writing it?
 	private void buildCuteAnimals() {
-		
+		cuteAnimalMemes.add("pupper");
+		cuteAnimalMemes.add("otter");
+		cuteAnimalMemes.add("kittie");
+		cuteAnimalMemes.add("floofer");
 	}
 	
 	public String processConversation(String input) {
@@ -147,47 +151,59 @@ public class Chatbot {
 	}
 	
 	public boolean htmlTagChecker(String input) {
+		
+		// an array that stores the location of the four tag openings/closings (< & >)
 		int[] markers = new int[4];
-		//the code tries to parse the tag, if it throws an error, the tag is invalid
-		try{
+		
+		// the code tries to parse the tag. If it throws an error, that means tag is invalid
+		try {
 			input = input.toLowerCase().trim();
-			if(!input.startsWith("<"))
+			
+			//return false if the first character doesn't open a tag
+			if (!input.startsWith("<"))
 				return false;
 			
-			//index of opening tag beginning (First <)
+			// index of opening tag beginning (First <)
 			markers[0] = 0;
-			//index of opening tag end (First >)
+			// index of opening tag end (First >)
 			markers[1] = input.indexOf(">");
 			
-			//assigns the string in the opening tag
-			String openingTag = input.substring(markers[0]+1, markers[1]);
-			System.out.println(openingTag);
-			//if the content of the first tag is p, ignore the rest and return true
-			if(openingTag.equals("p"))
+			// assigns the string in the opening tag
+			String openingTag = input.substring(markers[0] + 1, markers[1]);
+			
+			// if the content of the first tag is p, ignore the rest and return true because
+			//<p> doesen't need a close because the stupid HTML people decided to not be consistent
+			if (openingTag.equals("p"))
 				return true;
 			
-			//index of closing tag beginning (Second <)
-			markers[2] = (input.substring(markers[1]).indexOf("<"))+markers[1];
-			//index of closing tag end (Second >)
-			markers[3] = (input.substring(markers[2]).indexOf(">"))+markers[2];
+			// index of closing tag beginning (Second <)
+			markers[2] = (input.substring(markers[1]).indexOf("<")) + markers[1];
 			
-			//finds the data in the tags and content
-			String content = input.substring(markers[1]+1, markers[2]);
-			String closingTag = input.substring(markers[2]+1, markers[3]);
+			// index of closing tag end (Second >)
+			markers[3] = (input.substring(markers[2]).indexOf(">")) + markers[2];
 			
-			//now that we know the tag is in the correct format, we can check the content
+			// finds the data in the other tags and content
+			String content = input.substring(markers[1] + 1, markers[2]);
+			String closingTag = input.substring(markers[2] + 1, markers[3]);
 			
-			if(openingTag.contains("href")){
-				//checks if the href has an equals sign after it
-				if(!openingTag.substring(openingTag.indexOf("href")+4).startsWith("="))
+			//----------------------------------------------------------------------------
+			// now that we know the tag is in the correct format, we can check the content
+			
+			if (openingTag.contains("href")) {
+				// checks if the href has an equals sign after it
+				if (!openingTag.substring(openingTag.indexOf("href") + 4).startsWith("="))
 					return false;
 			}
 			
-			//checks if the opening tag and closing tag are the same type and the closing tag begins with a '/'
-			if(!openingTag.startsWith(closingTag.substring(1)) && closingTag.startsWith("/"))
+			// checks if the opening tag and closing tag are the same type and that the closing
+			// tag begins with a '/'
+			if (!openingTag.startsWith(closingTag.substring(1)) && closingTag.startsWith("/"))
 				return false;
+			
+			//returns true if it hasen't thrown and exception or returned false yet.
 			return true;
-		} catch(Exception e){
+		}
+		catch (Exception e) {
 			return false;
 		}
 	}
@@ -210,6 +226,10 @@ public class Chatbot {
 	}
 	
 	public boolean cuteAnimalMemeChecker(String input) {
+		for (int i = 0; i < cuteAnimalMemes.size(); i++) {
+			if (cuteAnimalMemes.get(i).contains(input))
+				return true;
+		}
 		return false;
 	}
 	
