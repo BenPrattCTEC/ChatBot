@@ -12,10 +12,10 @@ public class Movie {
 	private double starScore;
 	
 	public Movie(String title, String genre, String ratingMPAA, String review, int length, LocalDate releaseDate, double starScore) {
-		this.title = title;
-		this.genre = genre;
-		this.ratingMPAA = ratingMPAA;
-		this.review = review;
+		this.title = title.trim();
+		this.genre = genre.trim();
+		this.ratingMPAA = ratingMPAA.trim();
+		this.review = review.trim();
 		this.length = length;
 		this.releaseDate = releaseDate;
 		this.starScore = starScore;

@@ -1,6 +1,5 @@
 package chat.model;
 
-import chat.model.*;
 import chat.util.*;
 import java.util.List;
 import java.time.LocalDate;
@@ -18,7 +17,6 @@ public class Chatbot {
 	private String[] questions;
 	private String username;
 	private String content;
-	private String intro;
 	private LocalTime currentTime;
 	
 	final String[] mashPatterns = {
@@ -41,15 +39,9 @@ public class Chatbot {
 		this.movieList = new ArrayList<Movie>();
 		this.shoppingList = new ArrayList<String>();
 		this.cuteAnimalMemes = new ArrayList<String>();
-		this.currentTime = null;
-		this.questions = null;
 		this.username = username;
-		this.content = null;
-		this.intro = null;
-		this.currentTime = null;
-		this.topics = null;
-		this.verbs = null;
-		this.followUps = null;
+		this.content = "";
+		this.currentTime = LocalTime.now();
 		
 		buildVerbs();
 		buildShoppingList();
@@ -83,12 +75,11 @@ public class Chatbot {
 	}
 	
 	private void buildMovieList() {
-		// Movie(String title, String genre, String ratingMPAA, String review, int
-		// length, LocalDate releaseDate, double starScore)
-		movieList.add(new Movie("Movie Name", "Movie", "R", "The worst movie i have ever seen", 120, LocalDate.now(), 1.2));
-		movieList.add(new Movie("Movie Name", "Movie", "R", "The worst movie i have ever seen", 120, LocalDate.now(), 1.2));
-		movieList.add(new Movie("Movie Name", "Movie", "R", "The worst movie i have ever seen", 120, LocalDate.now(), 1.2));
-		movieList.add(new Movie("Movie Name", "Movie", "R", "The worst movie i have ever seen", 120, LocalDate.now(), 1.2));
+		// Movie(String title, String genre, String ratingMPAA, String review, int length, LocalDate releaseDate, double starScore)
+		movieList.add(new Movie("Spiderman", "Action", "PG-13", "Clever, funny, and true to the Spider-Man spirit.", 133, LocalDate.of(2017, 6, 28), 4));
+		movieList.add(new Movie("Hidden Figures", "History/Drama", "PG", "Hidden Figures inspires as it entertains. It acknowledges racial divisions while insisting that there's more than one way to fix them.", 127, LocalDate.of(2016, 12, 25), 4));
+		movieList.add(new Movie("Movie Name", "Documentary", "R", "The worst movie i have ever seen", 120, LocalDate.now(), 1.2));
+		movieList.add(new Movie("Movie Name", "Thriller", "R", "The worst movie i have ever seen", 120, LocalDate.now(), 1.2));
 		movieList.add(new Movie("Movie Name", "Movie", "R", "The worst movie i have ever seen", 120, LocalDate.now(), 1.2));
 		movieList.add(new Movie("Movie Name", "Movie", "R", "The worst movie i have ever seen", 120, LocalDate.now(), 1.2));
 		movieList.add(new Movie("Movie Name", "Movie", "R", "The worst movie i have ever seen", 120, LocalDate.now(), 1.2));
@@ -226,6 +217,7 @@ public class Chatbot {
 	}
 	
 	public boolean cuteAnimalMemeChecker(String input) {
+		input = input.trim();
 		for (int i = 0; i < cuteAnimalMemes.size(); i++) {
 			if (cuteAnimalMemes.get(i).contains(input))
 				return true;
@@ -242,19 +234,31 @@ public class Chatbot {
 	}
 	
 	public boolean movieTitleChecker(String title) {
+		title = title.trim().toLowerCase();
+		for(int i = 0; i<movieList.size(); i++){
+			if(title.equals(movieList.get(i).getTitle().toLowerCase()))
+				return true;
+		}
 		return false;
 	}
 	
 	public boolean movieGenreChecker(String genre) {
+		if(genre.equals(""))
+			return false;
+		genre = genre.trim().toLowerCase();
+		for(int i = 0; i<movieList.size(); i++){
+			if(movieList.get(i).getGenre().toLowerCase().contains(genre))
+				return true;
+		}
 		return false;
 	}
 	
 	public boolean quitChecker(String exitString) {
 		if (exitString == null)
 			return false;
-		if (!exitString.equalsIgnoreCase("quit") && !exitString.equalsIgnoreCase("cancel"))
-			return false;
-		return true;
+		if (exitString.equalsIgnoreCase("quit") || exitString.equalsIgnoreCase("cancel"))
+			return true;
+		return false;
 	}
 	
 	public boolean keyboardMashChecker(String sample) {
@@ -303,7 +307,8 @@ public class Chatbot {
 	}
 	
 	public LocalTime getCurrentTime() {
-		return LocalTime.now();
+		currentTime = LocalTime.now();
+		return currentTime;
 	}
 	
 	public void setUsername(String username) {
