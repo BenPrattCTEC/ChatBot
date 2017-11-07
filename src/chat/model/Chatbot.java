@@ -19,21 +19,7 @@ public class Chatbot {
 	private String content;
 	private LocalTime currentTime;
 	
-	final String[] mashPatterns = {
-			"df", "fp",
-			"kj", "l;",
-			";", "'",
-			"sd", "fg",
-			"hj", "gj",
-			"[", "]",
-			"/", "fd",
-			"gm", "sg",
-			"ad", "hf",
-			"uj", "jf",
-			"fg", "cvb",
-			",.", "kjh"};
-	
-	private MashChecker mash = new MashChecker(mashPatterns);
+	private MashChecker mash = new MashChecker();
 	
 	public Chatbot(String username) {
 		this.movieList = new ArrayList<Movie>();
@@ -126,6 +112,9 @@ public class Chatbot {
 		response += verbs[(int) (Math.random() * verbs.length)] + " ";
 		response += topics[(int) (Math.random() * topics.length)] + " ";
 		response += "\n" + questions[(int) (Math.random() * questions.length)];
+		
+		if(((int)Math.random()*2)%2 == 0)
+			response+="\n" + movieList.get((int)(Math.random()*movieList.size())).getTitle() + " Is a great movie"; 
 		return response;
 	}
 	

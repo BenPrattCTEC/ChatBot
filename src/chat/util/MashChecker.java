@@ -20,6 +20,30 @@ public class MashChecker {
 		
 	}
 	
+	public MashChecker() {
+		this.patterns = new String[] {
+			"df", "fp",
+			"kj", "l;",
+			";", "'",
+			"sd", "fg",
+			"hj", "gj",
+			"[", "]",
+			"/", "fd",
+			"gm", "sg",
+			"ad", "hf",
+			"uj", "jf",
+			"fg", "cvb",
+			",.", "kjh"};
+		this.weights = new int[patterns.length];
+		this.matchCount = new int[patterns.length];
+		
+		// Initializes weights[]
+		for (int i = 0; i < patterns.length; i++) {
+			weights[i] = patterns[i].length();
+		}
+		
+	}
+	
 	public MashChecker(String[] patterns, int[] weights) throws ArraySizeMismatchException {
 		this.patterns = patterns;
 		this.weights = weights;
