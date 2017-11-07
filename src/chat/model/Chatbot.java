@@ -40,7 +40,7 @@ public class Chatbot {
 		this.shoppingList = new ArrayList<String>();
 		this.cuteAnimalMemes = new ArrayList<String>();
 		this.username = username;
-		this.content = "";
+		this.content = "I am some content";
 		this.currentTime = LocalTime.now();
 		
 		buildVerbs();
@@ -213,6 +213,13 @@ public class Chatbot {
 	}
 	
 	public boolean contentChecker(String contentCheck) {
+//		contentCheck=contentCheck.trim();
+		if(contentCheck == null)
+			return false;
+		if(contentCheck.equals(" "))
+			return false;
+		if(contentCheck.contains(content))
+			return true;
 		return false;
 	}
 	

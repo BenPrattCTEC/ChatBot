@@ -17,6 +17,9 @@ public class ChatbotController {
 	}
 	
 	public void start() {
+		bot.setContent("Hello");
+		System.out.println(bot.contentChecker(" "));
+		System.out.println(bot.contentChecker("Hello"));
 		String input = pop.displayQuestion("Hello! What would you like to talk about?");
 		try {
 			while (!bot.quitChecker(input)) {// && bot.lengthChecker(input)){
