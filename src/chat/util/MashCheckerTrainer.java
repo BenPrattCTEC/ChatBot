@@ -77,14 +77,14 @@ public class MashCheckerTrainer {
 			}
 		}
 		
-		System.out.println("Sorting Finished, finishing up weight Calculations...");
+		System.out.println("Sorting Complete, finishing up Weight Calculations...");
 		//multiplies the weights by the string length and divides them by the length of the training data
 		for(int i = 0; i<finalWeights.length; i++){
-			finalWeights[i] = (finalWeights[i]*(double)finalPatterns[i].length())/(double)trainingData.length();
+			finalWeights[i] = ((finalWeights[i]*(double)finalPatterns[i].length())/(double)trainingData.length())*100;
 		}
 		
 		
-		System.out.println("Network Trained, printing...");
+		System.out.println("Network trained, printing...");
 		for(int i = 0; i<finalPatterns.length; i++){
 			System.out.print(finalPatterns[i]+ " " + finalWeights[i] + "\n");
 		}
