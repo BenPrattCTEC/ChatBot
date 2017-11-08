@@ -22,6 +22,8 @@ public class Chatbot {
 	
 	private MashChecker mash;
 	
+	private final double mashProbabilityThreshhold = 9;
+	
 	
 	public Chatbot(String username) {
 		this.movieList = new ArrayList<Movie>();
@@ -274,7 +276,6 @@ public class Chatbot {
 	}
 	
 	public boolean keyboardMashChecker(String sample) {
-		final double mashProbabilityThreshhold = .1;
 		return mash.check(sample) > mashProbabilityThreshhold;
 	}
 	

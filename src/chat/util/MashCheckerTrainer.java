@@ -25,71 +25,74 @@ public class MashCheckerTrainer {
 	
 	public void train() {
 		
-		//puts the contents of in into trainingData
-//		System.out.println("Reading file into memory...");
+		// puts the contents of in into trainingData
+		// System.out.println("Reading file into memory...");
 		trainingData = fileToString(in).toLowerCase();
 		
-//		System.out.println("Training...");
+		 System.out.println("Training...");
 		
 		String trainingBuffer;
 		int indexInList;
 		
-		//counts the occurrences of every 2 character string in the file
-		for (int i = 0; i < trainingData.length() - 2; i++) {
-			trainingBuffer = trainingData.substring(i, i + 2);
-			indexInList = findInList(patterns, trainingBuffer);
-			if (indexInList == -1) {
-				patterns.add(trainingBuffer);
-				weights.add(1);
-			}
-			else {
-				weights.set(indexInList, weights.get(indexInList) + 1);
+		// counts the occurrences of every 2-3 character string in the file
+		for (int charLength = 2; charLength <= 4; charLength++) {
+			for (int i = 0; i < trainingData.length() - charLength; i++) {
+				trainingBuffer = trainingData.substring(i, i + charLength);
+				indexInList = findInList(patterns, trainingBuffer);
+				if (indexInList == -1) {
+					patterns.add(trainingBuffer);
+					weights.add(1);
+				}
+				else {
+					weights.set(indexInList, weights.get(indexInList) + 1);
+				}
 			}
 		}
 		
-//		System.out.println("Network trained, sorting...");
+		 System.out.println("Network trained, sorting...");
 		
-		//converts from an ArrayList to an array
+		// converts from an ArrayList to an array
 		finalWeights = toIntArray(weights);
 		finalPatterns = toStringArray(patterns);
 		
-		//binary sort that keeps the weights at the same index as the patterns
+		// binary sort that keeps the weights at the same index as the patterns
 		String tmpStr;
 		double tmpDbl;
 		boolean hasSwapped = true;
-		while(hasSwapped){
+		while (hasSwapped) {
 			hasSwapped = false;
-			for(int i = 0; i<finalWeights.length-1; i++){
-				if(finalWeights[i]<finalWeights[i+1]){
+			for (int i = 0; i < finalWeights.length - 1; i++) {
+				if (finalWeights[i] < finalWeights[i + 1]) {
 					
-					//swaps values
+					// swaps values
 					hasSwapped = true;
 					tmpDbl = finalWeights[i];
 					tmpStr = finalPatterns[i];
 					
-					finalWeights[i] = finalWeights[i+1];
-					finalPatterns[i] = finalPatterns[i+1];
+					finalWeights[i] = finalWeights[i + 1];
+					finalPatterns[i] = finalPatterns[i + 1];
 					
-					finalWeights[i+1] = tmpDbl;
-					finalPatterns[i+1] = tmpStr;
+					finalWeights[i + 1] = tmpDbl;
+					finalPatterns[i + 1] = tmpStr;
 					
 				}
 			}
 		}
 		
-//		System.out.println("Sorting Complete, finishing up Weight Calculations...");
-		//multiplies the weights by the string length and divides them by the length of the training data
-		for(int i = 0; i<finalWeights.length; i++){
-			finalWeights[i] = ((finalWeights[i]*(double)finalPatterns[i].length())/(double)trainingData.length())*100;
+		// System.out.println("Sorting Complete, finishing up Weight Calculations...");
+		// multiplies the weights by the string length and divides them by the length of
+		// the training data
+		for (int i = 0; i < finalWeights.length; i++) {
+			finalWeights[i] = ((finalWeights[i] * (double) finalPatterns[i].length()*26) / (double) trainingData.length())* 100;
 		}
 		
 		
-//		System.out.println("Network trained, printing...");
-//		for(int i = 0; i<finalPatterns.length; i++){
-//			System.out.print(finalPatterns[i]+ " " + finalWeights[i] + "\n");
-//		}
+		 System.out.println("Network trained, printing...");
+		 for(int i = 0; i<finalPatterns.length; i++){
+		 System.out.print(finalPatterns[i]+ " " + finalWeights[i] + "\n");
+		 }
 		
-//		System.out.println("Training Complete");
+		// System.out.println("Training Complete");
 	}
 	
 	public double[] getWeights() {
@@ -132,7 +135,7 @@ public class MashCheckerTrainer {
 	private double[] toIntArray(List<Integer> list) {
 		double[] ret = new double[list.size()];
 		for (int i = 0; i < ret.length; i++)
-			ret[i] = (double)list.get(i);
+			ret[i] = (double) list.get(i);
 		return ret;
 	}
 	
