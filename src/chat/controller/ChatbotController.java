@@ -2,7 +2,6 @@ package chat.controller;
 
 import chat.view.*;
 import chat.model.*;
-import chat.util.MashCheckerTrainer;
 import java.util.Scanner;
 import java.io.*;
 
@@ -12,23 +11,13 @@ public class ChatbotController {
 	private PopupDisplay pop;
 	private Scanner inp;
 	
-	private FileInputStream inFile;
+	
 	
 	
 	public ChatbotController() {
 		bot = new Chatbot("Ben");
 		pop = new PopupDisplay();
 		inp = new Scanner(System.in);
-		
-		try{
-			inFile = new FileInputStream("src/chat/util/mashTrainingData.txt");
-		}catch(Exception e){
-			System.out.println("Could not find file");
-			System.exit(0);
-		}
-		MashCheckerTrainer train = new MashCheckerTrainer(inFile);
-		
-		train.train();
 		
 	}
 	

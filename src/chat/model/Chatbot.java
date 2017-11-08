@@ -2,6 +2,7 @@ package chat.model;
 
 import chat.util.*;
 import java.util.List;
+import java.io.FileInputStream;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
@@ -19,7 +20,8 @@ public class Chatbot {
 	private String content;
 	private LocalTime currentTime;
 	
-	private MashChecker mash = new MashChecker();
+	private MashChecker mash;
+	
 	
 	public Chatbot(String username) {
 		this.movieList = new ArrayList<Movie>();
@@ -35,6 +37,20 @@ public class Chatbot {
 		buildCuteAnimals();
 		buildQuestions();
 		buildTopics();
+		initMashChecker();
+	}
+	
+	private void initMashChecker(){
+		try{
+			FileInputStream inFile = new FileInputStream("src/chat/util/mashTrainingData.txt");
+			MashCheckerTrainer mashTrainer = new MashCheckerTrainer(inFile);
+			mashTrainer.train();
+			mash = new MashChecker(mashTrainer.getPatterns(), mashTrainer.getWeights());
+		}catch(Exception e){
+			System.out.println("Could not find mashTrainingData.txt");
+			System.exit(0);
+		}
+
 	}
 	
 	private void buildVerbs() {

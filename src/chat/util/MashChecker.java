@@ -5,12 +5,12 @@ import chat.util.ArraySizeMismatchException;
 public class MashChecker {
 	
 	String[] patterns;
-	int[] weights;
+	double[] weights;
 	int[] matchCount;
 	
 	public MashChecker(String[] patterns) {
 		this.patterns = patterns;
-		this.weights = new int[patterns.length];
+		this.weights = new double[patterns.length];
 		this.matchCount = new int[patterns.length];
 		
 		// Initializes weights[]
@@ -34,7 +34,7 @@ public class MashChecker {
 			"uj", "jf",
 			"fg", "cvb",
 			",.", "kjh"};
-		this.weights = new int[patterns.length];
+		this.weights = new double[patterns.length];
 		this.matchCount = new int[patterns.length];
 		
 		// Initializes weights[]
@@ -44,7 +44,7 @@ public class MashChecker {
 		
 	}
 	
-	public MashChecker(String[] patterns, int[] weights) throws ArraySizeMismatchException {
+	public MashChecker(String[] patterns, double[] weights) throws ArraySizeMismatchException {
 		this.patterns = patterns;
 		this.weights = weights;
 		this.matchCount = new int[patterns.length];
@@ -68,7 +68,7 @@ public class MashChecker {
 		}
 		
 		mashProbability = (double) patternCountAccumulator / (double) stringLength;
-//		System.out.println(mashProbability);
+		System.out.println(mashProbability);
 		return mashProbability;
 	}
 	
