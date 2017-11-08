@@ -131,8 +131,8 @@ public class Chatbot {
 		response += topics[(int) (Math.random() * topics.length)] + " ";
 		response += "\n" + questions[(int) (Math.random() * questions.length)];
 		
-		if(((int)Math.random()*1024)%8 == 0)
-			response+="\n" + movieList.get((int)(Math.random()*movieList.size())).getTitle() + " Is a great movie"; 
+//		if(((int)Math.random()*1024)%8 == 0)
+//			response+="\n" + movieList.get((int)(Math.random()*movieList.size())).getTitle() + " Is a great movie"; 
 		return response;
 	}
 	

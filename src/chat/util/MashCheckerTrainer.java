@@ -26,10 +26,10 @@ public class MashCheckerTrainer {
 	public void train() {
 		
 		// puts the contents of in into trainingData
-		// System.out.println("Reading file into memory...");
+		 System.out.println("Reading file into memory...");
 		trainingData = fileToString(in).toLowerCase();
 		
-		 System.out.println("Training...");
+		System.out.println("Training...");
 		
 		String trainingBuffer;
 		int indexInList;
@@ -49,11 +49,18 @@ public class MashCheckerTrainer {
 			}
 		}
 		
-		 System.out.println("Network trained, sorting...");
+		System.out.println("Network trained, sorting...");
 		
 		// converts from an ArrayList to an array
 		finalWeights = toIntArray(weights);
 		finalPatterns = toStringArray(patterns);
+		
+		 System.out.println("Sorting Complete, finishing up Weight Calculations...");
+		// multiplies the weights by the string length and divides them by the length of
+		// the training data
+		for (int i = 0; i < finalWeights.length; i++) {
+			finalWeights[i] = ((finalWeights[i] * (double) finalPatterns[i].length() * 26) / (double) trainingData.length()) * 100;
+		}
 		
 		// binary sort that keeps the weights at the same index as the patterns
 		String tmpStr;
@@ -79,20 +86,12 @@ public class MashCheckerTrainer {
 			}
 		}
 		
-		// System.out.println("Sorting Complete, finishing up Weight Calculations...");
-		// multiplies the weights by the string length and divides them by the length of
-		// the training data
-		for (int i = 0; i < finalWeights.length; i++) {
-			finalWeights[i] = ((finalWeights[i] * (double) finalPatterns[i].length()*26) / (double) trainingData.length())* 100;
+		System.out.println("Network trained, printing...");
+		for (int i = 0; i < finalPatterns.length; i++) {
+			System.out.print(finalPatterns[i] + " " + finalWeights[i] + "\n");
 		}
 		
-		
-		 System.out.println("Network trained, printing...");
-		 for(int i = 0; i<finalPatterns.length; i++){
-		 System.out.print(finalPatterns[i]+ " " + finalWeights[i] + "\n");
-		 }
-		
-		// System.out.println("Training Complete");
+		 System.out.println("Training Complete");
 	}
 	
 	public double[] getWeights() {
