@@ -1,6 +1,8 @@
 package chat.util;
 
 import chat.util.ArraySizeMismatchException;
+import java.io.*;
+import chat.util.MashCheckerTrainer;
 
 public class MashChecker {
 	
@@ -20,26 +22,15 @@ public class MashChecker {
 		
 	}
 	
-	public MashChecker() {
-		this.patterns = new String[] {
-			"df", "fp",
-			"kj", "l;",
-			";", "'",
-			"sd", "fg",
-			"hj", "gj",
-			"[", "]",
-			"/", "fd",
-			"gm", "sg",
-			"ad", "hf",
-			"uj", "jf",
-			"fg", "cvb",
-			",.", "kjh"};
-		this.weights = new double[patterns.length];
-		this.matchCount = new int[patterns.length];
-		
-		// Initializes weights[]
-		for (int i = 0; i < patterns.length; i++) {
-			weights[i] = patterns[i].length();
+	public MashChecker(String file) throws FileNotFoundException {
+		try{
+		MashCheckerTrainer trainer = new MashCheckerTrainer(new FileInputStream(file));
+		trainer.train();
+		this.weights = trainer.getWeights();
+		this.patterns = trainer.getPatterns();
+		this.matchCount = new int[weights.length];
+		}catch(FileNotFoundException e){
+			throw new FileNotFoundException();
 		}
 		
 	}

@@ -11,9 +11,6 @@ public class ChatbotController {
 	private PopupDisplay pop;
 	private Scanner inp;
 	
-	
-	
-	
 	public ChatbotController() {
 		bot = new Chatbot("Ben");
 		pop = new PopupDisplay();

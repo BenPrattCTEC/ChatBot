@@ -20,10 +20,8 @@ public class Chatbot {
 	private String content;
 	private LocalTime currentTime;
 	
-	private MashChecker mash;
-	
-	private final double mashProbabilityThreshhold = 9;
-	
+	private MashChecker mashNet;
+	private MashChecker englishNet;
 	
 	public Chatbot(String username) {
 		this.movieList = new ArrayList<Movie>();
@@ -44,12 +42,10 @@ public class Chatbot {
 	
 	private void initMashChecker(){
 		try{
-			FileInputStream inFile = new FileInputStream("src/chat/util/mashTrainingData.txt");
-			MashCheckerTrainer mashTrainer = new MashCheckerTrainer(inFile);
-			mashTrainer.train();
-			mash = new MashChecker(mashTrainer.getPatterns(), mashTrainer.getWeights());
+			englishNet = new MashChecker("src/chat/util/englishTrainingData.txt");
+			mashNet = new MashChecker("src/chat/util/mashTrainingData.txt");
 		}catch(Exception e){
-			System.out.println("Could not find mashTrainingData.txt");
+			System.out.println("Could not find one or more training data files");
 			System.exit(0);
 		}
 
@@ -276,7 +272,7 @@ public class Chatbot {
 	}
 	
 	public boolean keyboardMashChecker(String sample) {
-		return mash.check(sample) > mashProbabilityThreshhold;
+		return mashNet.check(sample) > englishNet.check(sample);
 	}
 	
 	public List<Movie> getMovieList() {
