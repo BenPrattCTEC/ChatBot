@@ -10,6 +10,10 @@ public class MashChecker {
 	double[] weights;
 	int[] matchCount;
 	
+	/**
+	 * Constructor for Neural Net
+	 * @param patterns The patterns to later check the string against, effectively the nodes of the network
+	 */
 	public MashChecker(String[] patterns) {
 		this.patterns = patterns;
 		this.weights = new double[patterns.length];
@@ -22,6 +26,11 @@ public class MashChecker {
 		
 	}
 	
+	/**
+	 * Constructor for Neural Net
+	 * @param file the file of the training data relative to project path
+	 * @throws FileNotFoundException If the file does not exist or you dont have permission to access it
+	 */
 	public MashChecker(String file) throws FileNotFoundException {
 		try{
 		MashCheckerTrainer trainer = new MashCheckerTrainer(new FileInputStream(file));
@@ -35,6 +44,12 @@ public class MashChecker {
 		
 	}
 	
+	/**
+	 * Constructor for Neural Net
+	 * @param patterns The patterns to later check the string against, effectively the nodes of the network
+	 * @param weights The weights of the nodes
+	 * @throws ArraySizeMismatchException If patterns.length!=weights.length
+	 */
 	public MashChecker(String[] patterns, double[] weights) throws ArraySizeMismatchException {
 		this.patterns = patterns;
 		this.weights = weights;
@@ -45,6 +60,11 @@ public class MashChecker {
 		
 	}
 	
+	/**
+	 * Runs the input String through the network
+	 * @param sample The value to run through the network
+	 * @return an arbitrary value representing the likelihood that the string matches
+	 */
 	public double check(String sample) {
 		
 		sample = sample.toLowerCase();

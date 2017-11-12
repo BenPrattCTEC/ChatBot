@@ -15,14 +15,27 @@ public class MashCheckerTrainer {
 	
 	private String trainingData;
 	
+	/**
+	 * Constructor
+	 * @param inFile The training data for the network
+	 * 
+	 */
 	public MashCheckerTrainer(String inFile) throws FileNotFoundException {
 		in = new FileInputStream(inFile);
 	}
 	
+	/**
+	 * Constructor
+	 * @param fileInStream The training data for the network
+	 * 
+	 */
 	public MashCheckerTrainer(FileInputStream fileInStream) {
 		in = fileInStream;
 	}
 	
+	/**
+	 * Train the network from the file declared in the constructor 
+	 */
 	public void train() {
 		
 		// puts the contents of in into trainingData
@@ -90,13 +103,26 @@ public class MashCheckerTrainer {
 //			System.out.print(finalPatterns[i] + " " + finalWeights[i] + "\n");
 //		}
 		
+		//cleans up
+		weights = null;
+		patterns = null;
+		trainingData = null;
+		
 		 System.out.println("Training Complete");
 	}
 	
+	/**
+	 * Returns the node Weight array
+	 * @return Weight array
+	 */
 	public double[] getWeights() {
 		return finalWeights;
 	}
 	
+	/**
+	 * Returns the node Pattern array
+	 * @return Pattern array
+	 */
 	public String[] getPatterns() {
 		return finalPatterns;
 	}
