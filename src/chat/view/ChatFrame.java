@@ -1,5 +1,9 @@
 package chat.view;
 
-public abstract class ChatFrame {
+import java.awt.*;
+import javax.swing.JFrame;
+import chat.controller.ChatbotController;
+
+public abstract class ChatFrame extends JFrame {
 	
 }
