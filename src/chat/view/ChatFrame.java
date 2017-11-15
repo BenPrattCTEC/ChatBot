@@ -5,7 +5,7 @@ import javax.swing.JFrame;
 import chat.controller.ChatbotController;
 import chat.view.ChatPanel;
 
-public abstract class ChatFrame extends JFrame {
+public class ChatFrame extends JFrame {
 	private ChatbotController controller;
 	private ChatPanel panel;
 	
@@ -22,11 +22,18 @@ public abstract class ChatFrame extends JFrame {
 	private void setupFrame(){
 		
 		this.setContentPane(panel);
-		this.setTitle("GUI Testing");
+		this.setTitle("Temporary Title");
 		this.setSize(500, 500);
 		this.setResizable(false);
 		
 		this.setVisible(true);
+	}
+	
+	public ChatbotController getBaseController(){
+		return controller;
+	}
+	public ChatPanel getContentPane(){
+		return panel;
 	}
 	
 }
