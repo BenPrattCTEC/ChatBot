@@ -33,6 +33,10 @@ public class ChatFrame extends JFrame {
 	public ChatbotController getBaseController(){
 		return controller;
 	}
+	public ChatbotController getAppController(){
+		return controller;
+	}
+	
 	public ChatPanel getContentPane(){
 		return panel;
 	}
