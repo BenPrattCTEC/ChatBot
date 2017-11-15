@@ -5,6 +5,7 @@ import java.awt.*;
 import java.awt.event.*;
 
 import javax.swing.*;
+import javax.swing.text.DefaultCaret;
 
 public class ChatPanel extends JPanel {
 	
@@ -81,7 +82,10 @@ public class ChatPanel extends JPanel {
 	
 	private void submit() {
 		String text =controller.interactWithChatbot(inputBox.getText());
-		historyTextBox.setText(text);
+		historyTextBox.setText(
+				historyTextBox.getText() +
+				"\n>>>" + inputBox.getText() + "\n" + 
+				"<<< " + text);
 		inputBox.setText("");
 	}
 }

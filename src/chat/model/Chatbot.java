@@ -137,8 +137,8 @@ public class Chatbot {
 	private String buildChatbotResponse() {
 		String response = "I ";
 		response += verbs[(int) (Math.random() * verbs.length)] + " ";
-		response += topics[(int) (Math.random() * topics.length)] + " ";
-		response += "\n" + questions[(int) (Math.random() * questions.length)];
+		response += topics[(int) (Math.random() * topics.length)] + ". ";
+		response += questions[(int) (Math.random() * questions.length)];
 		
 //		if(((int)Math.random()*1024)%8 == 0)
 //			response+="\n" + movieList.get((int)(Math.random()*movieList.size())).getTitle() + " Is a great movie"; 
