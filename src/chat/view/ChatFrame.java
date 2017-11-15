@@ -13,7 +13,7 @@ public abstract class ChatFrame extends JFrame {
 		super();
 		
 		this.controller = controller;
-		this.panel = new GUIPanel(controller);
+		this.panel = new ChatPanel(controller);
 		
 		setupFrame();
 		
@@ -24,6 +24,7 @@ public abstract class ChatFrame extends JFrame {
 		this.setContentPane(panel);
 		this.setTitle("GUI Testing");
 		this.setSize(500, 500);
+		this.setResizable(false);
 		
 		this.setVisible(true);
 	}
