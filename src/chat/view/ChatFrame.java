@@ -23,8 +23,9 @@ public class ChatFrame extends JFrame {
 		
 		this.setContentPane(panel);
 		this.setTitle("Temporary Title");
-		this.setSize(500, 500);
-		this.setResizable(false);
+		this.setSize(900, 500);
+		this.setResizable(true);
+		this.setDefaultCloseOperation(this.EXIT_ON_CLOSE);
 		
 		this.setVisible(true);
 	}
