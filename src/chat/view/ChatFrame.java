@@ -19,6 +19,9 @@ public class ChatFrame extends JFrame {
 		
 	}
 	
+	/**
+	 * Initializes JFrame
+	 */
 	private void setupFrame(){
 		
 		this.setContentPane(panel);
@@ -30,9 +33,18 @@ public class ChatFrame extends JFrame {
 		this.setVisible(true);
 	}
 	
+	/**
+	 * gets the instance of ChatbotController
+	 * @return instance of ChatbotController
+	 */
 	public ChatbotController getBaseController(){
-		return controller;
+		return getAppController();
 	}
+	
+	/**
+	 * gets the instance of ChatbotController
+	 * @return instance of ChatbotController
+	 */
 	public ChatbotController getAppController(){
 		return controller;
 	}

@@ -45,6 +45,9 @@ public class ChatPanel extends JPanel {
 		setupListeners();
 	}
 	
+	/**
+	 * Sets up the Panel
+	 */
 	private void setupPanel() {
 		this.setBackground(Color.darkGray);
 		this.setLayout(layout);
@@ -53,10 +56,16 @@ public class ChatPanel extends JPanel {
 		this.add(historyTextBox);
 	}
 	
+	/**
+	 * sets up the Layout
+	 */
 	private void setupLayout() {
 		
 	}
 	
+	/**
+	 * sets up all of the listeners
+	 */
 	private void setupListeners() {
 		
 		//checks if you press enter while in the textBox
@@ -76,10 +85,17 @@ public class ChatPanel extends JPanel {
 		
 	}
 	
+	/**
+	 * returns a random color
+	 * @return a random color
+	 */
 	private Color randomColor() {
 		return (new Color((int) (Math.random() * 256), (int) (Math.random() * 256), (int) (Math.random() * 256)));
 	}
 	
+	/**
+	 * submits the contents of inputBox to the chatbot
+	 */
 	private void submit() {
 		String text =controller.interactWithChatbot(inputBox.getText());
 		historyTextBox.setText(
