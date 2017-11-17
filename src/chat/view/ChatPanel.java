@@ -98,10 +98,10 @@ public class ChatPanel extends JPanel {
 	 */
 	private void submit() {
 		String text =controller.interactWithChatbot(inputBox.getText());
-		historyTextBox.setText(
-				historyTextBox.getText() +
-				"\n>>>" + inputBox.getText() + "\n" + 
-				"<<< " + text);
+		historyTextBox.insert(
+				">>>" + inputBox.getText() + "\n" + 
+				"<<< " + text + "\n\n"
+				, 0);
 		inputBox.setText("");
 	}
 }
