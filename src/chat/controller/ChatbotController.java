@@ -6,6 +6,11 @@ import chat.model.*;
 import java.util.Scanner;
 import java.io.*;
 
+/**
+ * Manages the chatbot app
+ * @author Ben Pratt
+ */
+
 public class ChatbotController {
 	
 	private Chatbot bot;

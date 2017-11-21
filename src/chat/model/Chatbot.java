@@ -120,14 +120,23 @@ public class Chatbot {
 	 */
 	public String processConversation(String input) {
 		
+		String retBuffer = "";
+		
 		if (input != null) {
-			if (keyboardMashChecker(input))
-				return "I think that you just mashed the keyboard";
 			if (input.equalsIgnoreCase("exit"))
 				return "The command is quit you idiot";
+			if (keyboardMashChecker(input))
+				retBuffer+= "I think that you just mashed the keyboard. ";
+			if(htmlTagChecker(input))
+				retBuffer+= "Why did you enter and html Tag?. ";
+			if(cuteAnimalMemeChecker(input))
+				retBuffer+="You entered a cute animal meme! ";
+			if(shoppingListChecker(input))
+				retBuffer+= "that item is in your shopping list! ";
+			
 		}
 		
-		return buildChatbotResponse();
+		return retBuffer+=buildChatbotResponse();
 	}
 	
 	/**
@@ -167,6 +176,7 @@ public class Chatbot {
 	 * @return true if the tag is valid
 	 */
 	public boolean htmlTagChecker(String input) {
+		input = input.substring(input.indexOf("<"));
 		
 		// an array that stores the location of the four tag openings/closings (< & >)
 		int[] markers = new int[4];
