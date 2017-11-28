@@ -25,7 +25,7 @@ public class Chatbot {
 	
 	/**
 	 * Constructor
-	 * @param username The name of the user
+	 * @param username The name of the user, must start with an @ and contain only one @
 	 */
 	public Chatbot(String username) {
 		this.movieList = new ArrayList<Movie>();
@@ -41,6 +41,7 @@ public class Chatbot {
 		buildCuteAnimals();
 		buildQuestions();
 		buildTopics();
+		buildFollowups();
 		initMashChecker();
 	}
 	
@@ -76,6 +77,13 @@ public class Chatbot {
 				"What is your favorite color?",
 				"What is your Mother's maiden name?"
 				};
+	}
+	
+	private void buildFollowups(){
+		followUps = new String[]{
+				"Hello!"
+				};
+		
 	}
 	
 	private void buildMovieList() {
@@ -199,7 +207,7 @@ public class Chatbot {
 			
 			// if the content of the first tag is p, ignore the rest and return true because
 			//<p> doesen't need a close because the stupid HTML people decided to not be consistent
-			if (openingTag.equals("p"))
+			if (openingTag.startsWith("p ") || openingTag.equals("p"))
 				return true;
 			
 			// index of closing tag beginning (Second <)
@@ -216,8 +224,10 @@ public class Chatbot {
 			// now that we know the tag is in the correct format, we can check the content
 			
 			if (openingTag.contains("href")) {
-				// checks if the href has an equals sign after it
-				if (!openingTag.substring(openingTag.indexOf("href") + 4).startsWith("="))
+				// checks if the href has an equals sign after it and has an opening and closing quote
+				if (!openingTag.substring(openingTag.indexOf("href") + 4).startsWith("=\""))
+					return false;
+				if(!openingTag.trim().endsWith("\""))
 					return false;
 			}
 			
@@ -226,7 +236,7 @@ public class Chatbot {
 			if (!openingTag.startsWith(closingTag.substring(1)) && closingTag.startsWith("/"))
 				return false;
 			
-			//returns true if it hasen't thrown and exception or returned false yet.
+			//returns true if it hasn't thrown and exception or returned false yet.
 			return true;
 		}
 		catch (Exception e) {
