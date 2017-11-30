@@ -21,6 +21,20 @@ public class Movie {
 		this.starScore = starScore;
 	}
 	
+	public Movie(String title) {
+		if (title != "")
+			this.title = title.trim();
+		else {
+			this.title = "Movie";
+		}
+		this.genre = "Movie";
+		this.ratingMPAA = "PG";
+		this.review = "I was not initalized";
+		this.length = 60;
+		this.releaseDate = LocalDate.now();
+		this.starScore = 0;
+	}
+	
 	public String getTitle() {
 		return title;
 	}

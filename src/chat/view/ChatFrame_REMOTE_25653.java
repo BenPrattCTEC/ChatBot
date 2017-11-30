@@ -3,10 +3,6 @@ package chat.view;
 import java.awt.*;
 import javax.swing.JFrame;
 import chat.controller.ChatbotController;
-<<<<<<< HEAD
-
-public abstract class ChatFrame extends JFrame {
-=======
 import chat.view.ChatPanel;
 
 public class ChatFrame extends JFrame {
@@ -56,6 +52,5 @@ public class ChatFrame extends JFrame {
 	public ChatPanel getContentPane(){
 		return panel;
 	}
->>>>>>> GUI
 	
 }

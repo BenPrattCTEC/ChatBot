@@ -1,27 +1,35 @@
 package chat.controller;
 
-import chat.view.*;
+import chat.view.ChatFrame;
+import chat.view.PopupDisplay;
 import chat.model.*;
 import java.util.Scanner;
 import java.io.*;
+
+/**
+ * Manages the chatbot app
+ * @author Ben Pratt
+ */
 
 public class ChatbotController {
 	
 	private Chatbot bot;
 	private PopupDisplay pop;
 	private Scanner inp;
+	private ChatFrame frame;
 	
 	public ChatbotController() {
 		bot = new Chatbot("Ben");
 		pop = new PopupDisplay();
 		inp = new Scanner(System.in);
+		frame = new ChatFrame(this);
 		
 	}
 	
 	public void start() {
 		String input = pop.displayQuestion("Hello! What would you like to talk about?");
 		try {
-			while (!bot.quitChecker(input)) {// && bot.lengthChecker(input)){
+			while (!bot.quitChecker(input)) {
 				input = pop.displayQuestion(bot.processConversation(input));
 			}
 		}
@@ -29,7 +37,7 @@ public class ChatbotController {
 			e.printStackTrace();
 		}
 		pop.displayText("Goodbye!");
-		System.exit(1);
+		System.exit(0);
 	}
 	
 	public Chatbot getChatbot() {
@@ -41,7 +49,11 @@ public class ChatbotController {
 	}
 	
 	public String interactWithChatbot(String message) {
-		return null;
+		if(!bot.quitChecker(message)){
+			return bot.processConversation(message);
+		}
+		System.exit(0);
+		return "";
 	}
 	
 	public ChatFrame getChatFrame() {

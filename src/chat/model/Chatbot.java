@@ -25,7 +25,7 @@ public class Chatbot {
 	
 	/**
 	 * Constructor
-	 * @param username The name of the user
+	 * @param username The name of the user, must start with an @ and contain only one @
 	 */
 	public Chatbot(String username) {
 		this.movieList = new ArrayList<Movie>();
@@ -41,6 +41,7 @@ public class Chatbot {
 		buildCuteAnimals();
 		buildQuestions();
 		buildTopics();
+		buildFollowups();
 		initMashChecker();
 	}
 	
@@ -76,6 +77,13 @@ public class Chatbot {
 				"What is your favorite color?",
 				"What is your Mother's maiden name?"
 				};
+	}
+	
+	private void buildFollowups(){
+		followUps = new String[]{
+				"Hello!"
+				};
+		
 	}
 	
 	private void buildMovieList() {
@@ -120,14 +128,23 @@ public class Chatbot {
 	 */
 	public String processConversation(String input) {
 		
+		String retBuffer = "";
+		
 		if (input != null) {
-			if (keyboardMashChecker(input))
-				return "I think that you just mashed the keyboard";
 			if (input.equalsIgnoreCase("exit"))
 				return "The command is quit you idiot";
+			if (keyboardMashChecker(input))
+				retBuffer+= "I think that you just mashed the keyboard. ";
+			if(htmlTagChecker(input))
+				retBuffer+= "Why did you enter and html Tag?. ";
+			if(cuteAnimalMemeChecker(input))
+				retBuffer+="You entered a cute animal meme! ";
+			if(shoppingListChecker(input))
+				retBuffer+= "that item is in your shopping list! ";
+			
 		}
 		
-		return buildChatbotResponse();
+		return retBuffer+=buildChatbotResponse();
 	}
 	
 	/**
@@ -137,8 +154,8 @@ public class Chatbot {
 	private String buildChatbotResponse() {
 		String response = "I ";
 		response += verbs[(int) (Math.random() * verbs.length)] + " ";
-		response += topics[(int) (Math.random() * topics.length)] + " ";
-		response += "\n" + questions[(int) (Math.random() * questions.length)];
+		response += topics[(int) (Math.random() * topics.length)] + ". ";
+		response += questions[(int) (Math.random() * questions.length)];
 		
 //		if(((int)Math.random()*1024)%8 == 0)
 //			response+="\n" + movieList.get((int)(Math.random()*movieList.size())).getTitle() + " Is a great movie"; 
@@ -167,6 +184,7 @@ public class Chatbot {
 	 * @return true if the tag is valid
 	 */
 	public boolean htmlTagChecker(String input) {
+		input = input.substring(input.indexOf("<"));
 		
 		// an array that stores the location of the four tag openings/closings (< & >)
 		int[] markers = new int[4];
@@ -189,7 +207,7 @@ public class Chatbot {
 			
 			// if the content of the first tag is p, ignore the rest and return true because
 			//<p> doesen't need a close because the stupid HTML people decided to not be consistent
-			if (openingTag.equals("p"))
+			if (openingTag.startsWith("p ") || openingTag.equals("p"))
 				return true;
 			
 			// index of closing tag beginning (Second <)
@@ -206,8 +224,10 @@ public class Chatbot {
 			// now that we know the tag is in the correct format, we can check the content
 			
 			if (openingTag.contains("href")) {
-				// checks if the href has an equals sign after it
-				if (!openingTag.substring(openingTag.indexOf("href") + 4).startsWith("="))
+				// checks if the href has an equals sign after it and has an opening and closing quote
+				if (!openingTag.substring(openingTag.indexOf("href") + 4).startsWith("=\""))
+					return false;
+				if(!openingTag.trim().endsWith("\""))
 					return false;
 			}
 			
@@ -216,7 +236,7 @@ public class Chatbot {
 			if (!openingTag.startsWith(closingTag.substring(1)) && closingTag.startsWith("/"))
 				return false;
 			
-			//returns true if it hasen't thrown and exception or returned false yet.
+			//returns true if it hasn't thrown and exception or returned false yet.
 			return true;
 		}
 		catch (Exception e) {
