@@ -18,6 +18,7 @@ public class Chatbot {
 	private String[] questions;
 	private String username;
 	private String content;
+	private String name;
 	private LocalTime currentTime;
 	
 	private MashChecker mashNet;
@@ -34,6 +35,7 @@ public class Chatbot {
 		this.username = username;
 		this.content = "I am some content";
 		this.currentTime = LocalTime.now();
+		this.name = "Bob";
 		
 		buildVerbs();
 		buildShoppingList();
@@ -184,13 +186,13 @@ public class Chatbot {
 	 * @return true if the tag is valid
 	 */
 	public boolean htmlTagChecker(String input) {
+		// the code tries to parse the tag. If it throws an error, that means tag is invalid
+		try{
 		input = input.substring(input.indexOf("<"));
 		
 		// an array that stores the location of the four tag openings/closings (< & >)
 		int[] markers = new int[4];
 		
-		// the code tries to parse the tag. If it throws an error, that means tag is invalid
-		try {
 			input = input.toLowerCase().trim();
 			
 			//return false if the first character doesn't open a tag
@@ -280,6 +282,8 @@ public class Chatbot {
 	
 	public boolean cuteAnimalMemeChecker(String input) {
 		input = input.trim();
+		if(input.equals(""))
+			return false;
 		for (int i = 0; i < cuteAnimalMemes.size(); i++) {
 			if (cuteAnimalMemes.get(i).contains(input))
 				return true;
@@ -338,7 +342,7 @@ public class Chatbot {
 	public boolean quitChecker(String exitString) {
 		if (exitString == null)
 			return false;
-		if (exitString.equalsIgnoreCase("quit") || exitString.equalsIgnoreCase("cancel"))
+		if (exitString.equalsIgnoreCase("quit"))
 			return true;
 		return false;
 	}
@@ -403,6 +407,10 @@ public class Chatbot {
 	
 	public void setContent(String content) {
 		this.content = content;
+	}
+	
+	public String getName(){
+		return this.name;
 	}
 	
 	@Override

@@ -3,10 +3,6 @@ package chat.view;
 import java.awt.*;
 import javax.swing.JFrame;
 import chat.controller.ChatbotController;
-<<<<<<< HEAD
-
-public abstract class ChatFrame extends JFrame {
-=======
 import chat.view.ChatPanel;
 
 public class ChatFrame extends JFrame {
@@ -29,7 +25,7 @@ public class ChatFrame extends JFrame {
 	private void setupFrame(){
 		
 		this.setContentPane(panel);
-		this.setTitle("Temporary Title");
+		this.setTitle(controller.getChatbot().getName() + " the Chatbot");
 		this.setSize(900, 500);
 		this.setResizable(false);
 		this.setDefaultCloseOperation(this.EXIT_ON_CLOSE);
@@ -56,6 +52,5 @@ public class ChatFrame extends JFrame {
 	public ChatPanel getContentPane(){
 		return panel;
 	}
->>>>>>> GUI
 	
 }

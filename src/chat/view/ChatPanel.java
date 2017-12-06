@@ -15,6 +15,7 @@ public class ChatPanel extends JPanel {
 	private JTextArea historyTextBox;
 	private JTextField inputBox;
 	private SpringLayout layout;
+	private JScrollPane chatScrollPane;
 	
 	public ChatPanel(ChatbotController controller) {
 		super();
@@ -22,27 +23,42 @@ public class ChatPanel extends JPanel {
 		
 		layout = new SpringLayout();
 		
+		chatScrollPane = new JScrollPane();
+		layout.putConstraint(SpringLayout.WEST, chatScrollPane, 10, SpringLayout.WEST, this);
+		layout.putConstraint(SpringLayout.EAST, chatScrollPane, -22, SpringLayout.EAST, this);
 		submitButton = new JButton("Submit");
+		layout.putConstraint(SpringLayout.NORTH, submitButton, 11, SpringLayout.SOUTH, chatScrollPane);
+		layout.putConstraint(SpringLayout.EAST, submitButton, 0, SpringLayout.EAST, chatScrollPane);
 		inputBox = new JTextField();
-		layout.putConstraint(SpringLayout.SOUTH, inputBox, -23, SpringLayout.SOUTH, this);
+		layout.putConstraint(SpringLayout.NORTH, inputBox, 0, SpringLayout.NORTH, submitButton);
+		layout.putConstraint(SpringLayout.WEST, inputBox, 0, SpringLayout.WEST, chatScrollPane);
+		layout.putConstraint(SpringLayout.SOUTH, inputBox, 25, SpringLayout.NORTH, submitButton);
+		layout.putConstraint(SpringLayout.EAST, inputBox, -19, SpringLayout.WEST, submitButton);
 		inputBox.setToolTipText("Enter Text Here");
-		layout.putConstraint(SpringLayout.WEST, inputBox, 10, SpringLayout.WEST, this);
-		layout.putConstraint(SpringLayout.EAST, inputBox, -125, SpringLayout.EAST, this);
-		layout.putConstraint(SpringLayout.NORTH, submitButton, 0, SpringLayout.NORTH, inputBox);
-		layout.putConstraint(SpringLayout.WEST, submitButton, 19, SpringLayout.EAST, inputBox);
 		inputBox.setEnabled(true);
 		historyTextBox = new JTextArea(10, 25);
-		layout.putConstraint(SpringLayout.NORTH, inputBox, 11, SpringLayout.SOUTH, historyTextBox);
-		layout.putConstraint(SpringLayout.NORTH, historyTextBox, 10, SpringLayout.NORTH, this);
-		layout.putConstraint(SpringLayout.SOUTH, historyTextBox, -59, SpringLayout.SOUTH, this);
-		layout.putConstraint(SpringLayout.EAST, historyTextBox, 0, SpringLayout.EAST, submitButton);
-		layout.putConstraint(SpringLayout.WEST, historyTextBox, 0, SpringLayout.WEST, inputBox);
+		layout.putConstraint(SpringLayout.NORTH, chatScrollPane, 10, SpringLayout.NORTH, this);
+		layout.putConstraint(SpringLayout.SOUTH, chatScrollPane, -59, SpringLayout.SOUTH, this);
 		historyTextBox.setEditable(false);
 		historyTextBox.setLineWrap(true);
 		
+		setupScrollPane();
 		setupPanel();
 		setupLayout();
 		setupListeners();
+		
+		//prompting message
+		historyTextBox.append(">>> Hello! I am " + controller.getChatbot().getName() + ", how are you today?\n\n");
+	}
+	
+	/*
+	 * Sets up the scroll pane
+	 */
+	private void setupScrollPane(){
+		chatScrollPane.setViewportView(historyTextBox);
+		chatScrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+		chatScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+		historyTextBox.setWrapStyleWord(true);
 	}
 	
 	/**
@@ -53,7 +69,7 @@ public class ChatPanel extends JPanel {
 		this.setLayout(layout);
 		this.add(inputBox);
 		this.add(submitButton);
-		this.add(historyTextBox);
+		this.add(chatScrollPane);
 	}
 	
 	/**
@@ -97,11 +113,10 @@ public class ChatPanel extends JPanel {
 	 * submits the contents of inputBox to the chatbot
 	 */
 	private void submit() {
-		String text =controller.interactWithChatbot(inputBox.getText());
-		historyTextBox.insert(
-				">>>" + inputBox.getText() + "\n" + 
-				"<<< " + text + "\n\n"
-				, 0);
+		String text = controller.interactWithChatbot(inputBox.getText());
+		historyTextBox.append(
+				">>> " + inputBox.getText() + "\n" + 
+				"<<< " + text + "\n\n");
 		inputBox.setText("");
 	}
 }
