@@ -35,7 +35,7 @@ public class Chatbot {
 		this.username = username;
 		this.content = "I am some content";
 		this.currentTime = LocalTime.now();
-		this.name = "Bob";
+		this.name = "YATCo"; // Yet Another Talking Computer
 		
 		buildVerbs();
 		buildShoppingList();
@@ -133,16 +133,19 @@ public class Chatbot {
 		String retBuffer = "";
 		
 		if (input != null) {
+			if (input.equalsIgnoreCase(""))
+				return "Wow... Nothing to say.";
 			if (input.equalsIgnoreCase("exit"))
-				return "The command is quit you idiot";
+				return "The command is quit you idiot.";
 			if (keyboardMashChecker(input))
 				retBuffer+= "I think that you just mashed the keyboard. ";
 			if(htmlTagChecker(input))
-				retBuffer+= "Why did you enter and html Tag?. ";
+				retBuffer+= "Why did you enter and html Tag? ";
 			if(cuteAnimalMemeChecker(input))
 				retBuffer+="You entered a cute animal meme! ";
 			if(shoppingListChecker(input))
 				retBuffer+= "that item is in your shopping list! ";
+			
 			
 		}
 		
@@ -186,16 +189,16 @@ public class Chatbot {
 	 * @return true if the tag is valid
 	 */
 	public boolean htmlTagChecker(String input) {
-		// the code tries to parse the tag. If it throws an error, that means tag is invalid
-		try{
-		input = input.substring(input.indexOf("<"));
-		
-		// an array that stores the location of the four tag openings/closings (< & >)
-		int[] markers = new int[4];
-		
-			input = input.toLowerCase().trim();
+		input = input.toLowerCase().trim();
+		// the code tries to parse the tag. If it throws an error, that means tag is
+		// invalid
+		try {
+			input = input.substring(input.indexOf("<"));
 			
-			//return false if the first character doesn't open a tag
+			// an array that stores the location of the four tag openings/closings (< & >)
+			int[] markers = new int[4];
+			
+			// return false if the first character doesn't open a tag
 			if (!input.startsWith("<"))
 				return false;
 			
@@ -208,7 +211,8 @@ public class Chatbot {
 			String openingTag = input.substring(markers[0] + 1, markers[1]);
 			
 			// if the content of the first tag is p, ignore the rest and return true because
-			//<p> doesen't need a close because the stupid HTML people decided to not be consistent
+			// <p> doesen't need a close because the stupid HTML people decided to not be
+			// consistent
 			if (openingTag.startsWith("p ") || openingTag.equals("p"))
 				return true;
 			
@@ -222,23 +226,23 @@ public class Chatbot {
 			String content = input.substring(markers[1] + 1, markers[2]);
 			String closingTag = input.substring(markers[2] + 1, markers[3]);
 			
-			//----------------------------------------------------------------------------
+			// ----------------------------------------------------------------------------
 			// now that we know the tag is in the correct format, we can check the content
 			
 			if (openingTag.contains("href")) {
-				// checks if the href has an equals sign after it and has an opening and closing quote
+				// checks if the href has an equals sign after it and has an opening and closing
+				// quote
 				if (!openingTag.substring(openingTag.indexOf("href") + 4).startsWith("=\""))
 					return false;
-				if(!openingTag.trim().endsWith("\""))
+				if (!openingTag.trim().endsWith("\""))
 					return false;
 			}
 			
-			// checks if the opening tag and closing tag are the same type and that the closing
-			// tag begins with a '/'
+			// checks if the opening tag and closing tag are the same type and that the closing tag begins with a '/'
 			if (!openingTag.startsWith(closingTag.substring(1)) && closingTag.startsWith("/"))
 				return false;
 			
-			//returns true if it hasn't thrown and exception or returned false yet.
+			// returns true if it hasn't thrown and exception or returned false yet.
 			return true;
 		}
 		catch (Exception e) {

@@ -31,6 +31,7 @@ public class ChatFrame extends JFrame {
 		this.setDefaultCloseOperation(this.EXIT_ON_CLOSE);
 		
 		this.setVisible(true);
+		panel.setFocusToInputBox();
 	}
 	
 	/**

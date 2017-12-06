@@ -119,4 +119,8 @@ public class ChatPanel extends JPanel {
 				"<<< " + text + "\n\n");
 		inputBox.setText("");
 	}
+	
+	public boolean setFocusToInputBox(){
+		return inputBox.requestFocusInWindow();
+	}
 }
