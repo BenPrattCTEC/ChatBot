@@ -24,23 +24,23 @@ public class ChatPanel extends JPanel {
 		layout = new SpringLayout();
 		
 		chatScrollPane = new JScrollPane();
-		layout.putConstraint(SpringLayout.WEST, chatScrollPane, 10, SpringLayout.WEST, this);
-		layout.putConstraint(SpringLayout.EAST, chatScrollPane, -22, SpringLayout.EAST, this);
+			layout.putConstraint(SpringLayout.WEST, chatScrollPane, 10, SpringLayout.WEST, this);
+			layout.putConstraint(SpringLayout.EAST, chatScrollPane, -22, SpringLayout.EAST, this);
 		submitButton = new JButton("Submit");
-		layout.putConstraint(SpringLayout.NORTH, submitButton, 11, SpringLayout.SOUTH, chatScrollPane);
-		layout.putConstraint(SpringLayout.EAST, submitButton, 0, SpringLayout.EAST, chatScrollPane);
+			layout.putConstraint(SpringLayout.NORTH, submitButton, 11, SpringLayout.SOUTH, chatScrollPane);
+			layout.putConstraint(SpringLayout.EAST, submitButton, 0, SpringLayout.EAST, chatScrollPane);
 		inputBox = new JTextField();
-		layout.putConstraint(SpringLayout.NORTH, inputBox, 0, SpringLayout.NORTH, submitButton);
-		layout.putConstraint(SpringLayout.WEST, inputBox, 0, SpringLayout.WEST, chatScrollPane);
-		layout.putConstraint(SpringLayout.SOUTH, inputBox, 25, SpringLayout.NORTH, submitButton);
-		layout.putConstraint(SpringLayout.EAST, inputBox, -19, SpringLayout.WEST, submitButton);
-		inputBox.setToolTipText("Enter Text Here");
-		inputBox.setEnabled(true);
+			layout.putConstraint(SpringLayout.NORTH, inputBox, 0, SpringLayout.NORTH, submitButton);
+			layout.putConstraint(SpringLayout.WEST, inputBox, 0, SpringLayout.WEST, chatScrollPane);
+			layout.putConstraint(SpringLayout.SOUTH, inputBox, 25, SpringLayout.NORTH, submitButton);
+			layout.putConstraint(SpringLayout.EAST, inputBox, -19, SpringLayout.WEST, submitButton);
+			inputBox.setToolTipText("Enter Text Here");
+			inputBox.setEnabled(true);
 		historyTextBox = new JTextArea(10, 25);
-		layout.putConstraint(SpringLayout.NORTH, chatScrollPane, 10, SpringLayout.NORTH, this);
-		layout.putConstraint(SpringLayout.SOUTH, chatScrollPane, -59, SpringLayout.SOUTH, this);
-		historyTextBox.setEditable(false);
-		historyTextBox.setLineWrap(true);
+			layout.putConstraint(SpringLayout.NORTH, chatScrollPane, 10, SpringLayout.NORTH, this);
+			layout.putConstraint(SpringLayout.SOUTH, chatScrollPane, -59, SpringLayout.SOUTH, this);
+			historyTextBox.setEditable(false);
+			historyTextBox.setLineWrap(true);
 		
 		setupScrollPane();
 		setupPanel();
