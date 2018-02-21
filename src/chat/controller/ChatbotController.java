@@ -19,21 +19,15 @@ public class ChatbotController {
 	private PopupDisplay pop;
 	private Scanner inp;
 	private ChatFrame frame;
+	ChatbotTwitter twitter;
 	
 	public ChatbotController() {
 		bot = new Chatbot("Ben");
 		pop = new PopupDisplay();
 		inp = new Scanner(System.in);
 		// frame = new ChatFrame(this);
-		Twitter twitter = TwitterFactory.getSingleton();
-		// try {
-		// twitter.updateStatus("Second Tweet! @ChatbotCTEC");
-		// System.out.println("updated status");
-		// }
-		// catch (TwitterException e) {
-		// // TODO Auto-generated catch block
-		// e.printStackTrace();
-		// }
+		twitter = new ChatbotTwitter(this);
+		frame = new ChatFrame(this);
 		
 	}
 	
@@ -48,7 +42,7 @@ public class ChatbotController {
 	}
 	
 	public void handleErrors(Exception e){
-		
+		pop.displayText(e.getMessage());
 	}
 	
 	public Chatbot getChatbot() {
@@ -57,6 +51,10 @@ public class ChatbotController {
 	
 	public PopupDisplay getDisplay() {
 		return pop;
+	}
+	
+	public void tweet(String text){
+		twitter.tweet(text);
 	}
 	
 	public String interactWithChatbot(String message) {
