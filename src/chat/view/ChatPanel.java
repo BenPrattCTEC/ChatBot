@@ -17,21 +17,33 @@ public class ChatPanel extends JPanel {
 	private SpringLayout layout;
 	private JScrollPane chatScrollPane;
 	
+	private JButton chatButton;
+	private JButton loadButton;
+	private JButton saveButton;
+	private JButton tweetButton;
+	private JButton searchButton;
+	
 	public ChatPanel(ChatbotController controller) {
 		super();
 		this.controller = controller;
 		
 		layout = new SpringLayout();
 		
+		chatButton = new JButton("Chat", new ImageIcon("src/chat/view/Chatbot.png"));
+		saveButton = new JButton("Save", new ImageIcon("sec/chat/view/Save-icon.png"));
+		tweetButton = new JButton("Tweet", new ImageIcon("src/chat/view/Twitter.png"));
+		loadButton = new JButton("Load", new ImageIcon("src/chat/view/loading.gif"));
+		searchButton = new JButton("Search");
+		
 		chatScrollPane = new JScrollPane();
 			layout.putConstraint(SpringLayout.WEST, chatScrollPane, 10, SpringLayout.WEST, this);
-			layout.putConstraint(SpringLayout.EAST, chatScrollPane, -22, SpringLayout.EAST, this);
+			layout.putConstraint(SpringLayout.EAST, chatScrollPane, -125, SpringLayout.EAST, this);
 		submitButton = new JButton("Submit");
-			layout.putConstraint(SpringLayout.NORTH, submitButton, 11, SpringLayout.SOUTH, chatScrollPane);
-			layout.putConstraint(SpringLayout.EAST, submitButton, 0, SpringLayout.EAST, chatScrollPane);
+		layout.putConstraint(SpringLayout.NORTH, submitButton, 252, SpringLayout.NORTH, this);
+			layout.putConstraint(SpringLayout.EAST, submitButton, -22, SpringLayout.EAST, this);
 		inputBox = new JTextField();
 			layout.putConstraint(SpringLayout.NORTH, inputBox, 0, SpringLayout.NORTH, submitButton);
-			layout.putConstraint(SpringLayout.WEST, inputBox, 0, SpringLayout.WEST, chatScrollPane);
+			layout.putConstraint(SpringLayout.WEST, inputBox, 10, SpringLayout.WEST, this);
 			layout.putConstraint(SpringLayout.SOUTH, inputBox, 25, SpringLayout.NORTH, submitButton);
 			layout.putConstraint(SpringLayout.EAST, inputBox, -19, SpringLayout.WEST, submitButton);
 			inputBox.setToolTipText("Enter Text Here");
@@ -70,6 +82,11 @@ public class ChatPanel extends JPanel {
 		this.add(inputBox);
 		this.add(submitButton);
 		this.add(chatScrollPane);
+		this.add(chatButton);
+		this.add(tweetButton);
+		this.add(loadButton);
+		this.add(saveButton);
+		this.add(searchButton);
 	}
 	
 	/**

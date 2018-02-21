@@ -2,12 +2,14 @@ package chat.controller;
 
 import chat.view.ChatFrame;
 import chat.view.PopupDisplay;
+import twitter4j.*;
 import chat.model.*;
 import java.util.Scanner;
 import java.io.*;
 
 /**
  * Manages the chatbot app
+ * 
  * @author Ben Pratt
  */
 
@@ -22,22 +24,31 @@ public class ChatbotController {
 		bot = new Chatbot("Ben");
 		pop = new PopupDisplay();
 		inp = new Scanner(System.in);
-		frame = new ChatFrame(this);
+		// frame = new ChatFrame(this);
+		Twitter twitter = TwitterFactory.getSingleton();
+		// try {
+		// twitter.updateStatus("Second Tweet! @ChatbotCTEC");
+		// System.out.println("updated status");
+		// }
+		// catch (TwitterException e) {
+		// // TODO Auto-generated catch block
+		// e.printStackTrace();
+		// }
 		
 	}
 	
 	public void start() {
-		String input = pop.displayQuestion("Hello! What would you like to talk about?");
 		try {
-			while (!bot.quitChecker(input)) {
-				input = pop.displayQuestion(bot.processConversation(input));
-			}
+			
 		}
 		catch (Exception e) {
 			e.printStackTrace();
 		}
-		pop.displayText("Goodbye!");
-		System.exit(0);
+		
+	}
+	
+	public void handleErrors(Exception e){
+		
 	}
 	
 	public Chatbot getChatbot() {
@@ -49,7 +60,7 @@ public class ChatbotController {
 	}
 	
 	public String interactWithChatbot(String message) {
-		if(!bot.quitChecker(message)){
+		if (!bot.quitChecker(message)) {
 			return bot.processConversation(message);
 		}
 		System.exit(0);
