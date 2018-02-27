@@ -4,6 +4,8 @@ import chat.view.ChatFrame;
 import chat.view.PopupDisplay;
 import twitter4j.*;
 import chat.model.*;
+import chat.util.FileIO;
+
 import java.util.Scanner;
 import java.io.*;
 
@@ -33,10 +35,11 @@ public class ChatbotController {
 	
 	public void start() {
 		try {
-			
+//			System.out.println(FileIO.load("commonWords.txt"));
+//			FileIO.save("/home/ben/file.txt", "File test");
 		}
 		catch (Exception e) {
-			e.printStackTrace();
+			handleErrors(e);
 		}
 		
 	}

@@ -33,7 +33,6 @@ public class ChatPanel extends JPanel {
 		layout.putConstraint(SpringLayout.EAST, chatButton, -21, SpringLayout.EAST, this);
 		saveButton = new JButton("Save", new ImageIcon("sec/chat/view/Save-icon.png"));
 		tweetButton = new JButton("Tweet", new ImageIcon("src/chat/view/Twitter.png"));
-		layout.putConstraint(SpringLayout.SOUTH, tweetButton, -6, SpringLayout.NORTH, chatButton);
 		layout.putConstraint(SpringLayout.EAST, tweetButton, -21, SpringLayout.EAST, this);
 		loadButton = new JButton("Load", new ImageIcon("src/chat/view/loading.gif"));
 		layout.putConstraint(SpringLayout.SOUTH, saveButton, -6, SpringLayout.NORTH, loadButton);
@@ -47,6 +46,8 @@ public class ChatPanel extends JPanel {
 			layout.putConstraint(SpringLayout.WEST, chatScrollPane, 10, SpringLayout.WEST, this);
 			layout.putConstraint(SpringLayout.EAST, chatScrollPane, -125, SpringLayout.EAST, this);
 		submitButton = new JButton("Submit");
+		layout.putConstraint(SpringLayout.SOUTH, tweetButton, -37, SpringLayout.NORTH, submitButton);
+		layout.putConstraint(SpringLayout.EAST, submitButton, -21, SpringLayout.EAST, this);
 		layout.putConstraint(SpringLayout.WEST, searchButton, 0, SpringLayout.WEST, submitButton);
 		layout.putConstraint(SpringLayout.EAST, searchButton, 0, SpringLayout.EAST, submitButton);
 		layout.putConstraint(SpringLayout.WEST, saveButton, 0, SpringLayout.WEST, submitButton);
@@ -54,14 +55,13 @@ public class ChatPanel extends JPanel {
 		layout.putConstraint(SpringLayout.WEST, loadButton, 0, SpringLayout.WEST, submitButton);
 		layout.putConstraint(SpringLayout.EAST, loadButton, 0, SpringLayout.EAST, submitButton);
 		layout.putConstraint(SpringLayout.SOUTH, chatButton, -6, SpringLayout.NORTH, submitButton);
-		layout.putConstraint(SpringLayout.EAST, submitButton, 0, SpringLayout.EAST, chatButton);
 		inputBox = new JTextField();
+		layout.putConstraint(SpringLayout.WEST, submitButton, 6, SpringLayout.EAST, inputBox);
 		layout.putConstraint(SpringLayout.NORTH, inputBox, 11, SpringLayout.SOUTH, chatScrollPane);
 		layout.putConstraint(SpringLayout.WEST, inputBox, 10, SpringLayout.WEST, this);
 		layout.putConstraint(SpringLayout.SOUTH, inputBox, -23, SpringLayout.SOUTH, this);
 		layout.putConstraint(SpringLayout.EAST, inputBox, -125, SpringLayout.EAST, this);
 		layout.putConstraint(SpringLayout.NORTH, submitButton, 0, SpringLayout.NORTH, inputBox);
-		layout.putConstraint(SpringLayout.WEST, submitButton, 6, SpringLayout.EAST, inputBox);
 			inputBox.setToolTipText("Enter Text Here");
 			inputBox.setEnabled(true);
 		historyTextBox = new JTextArea(10, 25);
@@ -129,6 +129,27 @@ public class ChatPanel extends JPanel {
 		submitButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent click) {
 				submit();
+			}
+		});
+		
+		tweetButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent click) {
+				controller.tweet(inputBox.getText());
+			}
+		});
+		
+		searchButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent click) {
+			}
+		});
+		
+		saveButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent click) {
+			}
+		});
+		
+		loadButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent click) {
 			}
 		});
 		
