@@ -1,8 +1,13 @@
 package chat.view;
 
 import chat.controller.ChatbotController;
+import chat.util.FileIO;
+
 import java.awt.*;
 import java.awt.event.*;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.Calendar;
 
 import javax.swing.*;
 import javax.swing.text.DefaultCaret;
@@ -145,11 +150,25 @@ public class ChatPanel extends JPanel {
 		
 		saveButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent click) {
+				System.out.println("Saving");
+				try {
+					FileIO.save(Calendar.HOUR + "-" + Calendar.MINUTE + ".txt", historyTextBox.getText());
+				}
+				catch (IOException e) {
+					// TODO Auto-generated catch block
+					controller.handleErrors(e);
+				}
 			}
 		});
 		
 		loadButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent click) {
+				try {
+					historyTextBox.setText(FileIO.load("commonWords.txt"));
+				}
+				catch (Exception e) {
+					controller.handleErrors(e);
+				}
 			}
 		});
 		
